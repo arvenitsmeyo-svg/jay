@@ -47,6 +47,36 @@
   #gfxNote{margin-top:10px;font-size:10px;color:#64748b;text-align:center;line-height:1.5;}
   #gfxFps{position:absolute;bottom:8px;right:12px;font-size:10px;font-weight:800;color:rgba(148,163,184,.7);pointer-events:none;z-index:20;}
   @media (max-width:640px){ #gfxBtn{right:auto;left:12px;top:142px;} #gfxPanel{max-height:80vh;} }
+  /* ===== CELESTIAL GOD MODE UI ===== */
+  #godBigText{position:absolute;top:38%;left:50%;transform:translate(-50%,-50%) scale(.7);opacity:0;color:#ffd700;font-weight:900;font-size:34px;letter-spacing:3px;text-align:center;text-shadow:0 0 30px rgba(255,200,0,.9),0 0 60px rgba(255,150,0,.6),0 2px 8px #000;pointer-events:none;z-index:60;transition:opacity .4s,transform .4s;white-space:nowrap;max-width:92%;overflow:hidden;text-overflow:ellipsis;}
+  #godBigText.show{opacity:1;transform:translate(-50%,-50%) scale(1);}
+  #godBigText .sub{display:block;font-size:14px;letter-spacing:6px;color:#ffe680;margin-top:6px;}
+  #godPanel{position:absolute;top:150px;left:12px;width:150px;background:linear-gradient(160deg,rgba(10,8,4,.92),rgba(20,14,4,.92));border:1px solid rgba(255,200,0,.55);border-radius:12px;padding:9px;pointer-events:auto;display:none;z-index:35;backdrop-filter:blur(6px);box-shadow:0 8px 30px rgba(0,0,0,.6),0 0 20px rgba(255,200,0,.12);}
+  #godPanel.unlocked{display:block;}
+  #godPanel .godTitle{color:#ffd700;font-size:11px;font-weight:900;letter-spacing:1.5px;text-align:center;margin-bottom:7px;text-shadow:0 0 10px rgba(255,200,0,.6);}
+  .godBtn{width:100%;margin-bottom:6px;padding:7px 4px;border-radius:8px;border:1px solid rgba(255,200,0,.5);background:linear-gradient(135deg,rgba(40,30,5,.8),rgba(15,10,2,.8));color:#ffe680;font-weight:800;font-size:10.5px;cursor:pointer;transition:all .15s;font-family:inherit;letter-spacing:.3px;}
+  .godBtn:hover{border-color:#ffd700;box-shadow:0 0 14px rgba(255,200,0,.4);color:#fff;}
+  .godBtn:active{transform:scale(.94);}
+  .godBtn.on{background:linear-gradient(135deg,rgba(255,200,0,.35),rgba(255,140,0,.2));border-color:#ffd700;color:#fff;box-shadow:0 0 16px rgba(255,200,0,.5);}
+  .godBtn:disabled{opacity:.35;cursor:not-allowed;}
+  #godHpInfo{font-size:9.5px;color:#fbbf24;text-align:center;margin-top:3px;font-weight:700;}
+  #godStatusDot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#475569;margin-right:4px;vertical-align:middle;}
+  #godStatusDot.on{background:#ffd700;box-shadow:0 0 8px #ffd700;animation:godPulse 1.2s infinite;}
+  @keyframes godPulse{0%,100%{opacity:1}50%{opacity:.4}}
+  #codeModal{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:88%;max-width:340px;background:linear-gradient(160deg,rgba(12,10,6,.97),rgba(30,20,5,.97));border:1px solid rgba(255,200,0,.6);border-radius:14px;padding:20px;pointer-events:auto;display:none;z-index:70;box-shadow:0 20px 60px rgba(0,0,0,.8),0 0 30px rgba(255,200,0,.2);text-align:center;}
+  #codeModal.show{display:block;}
+  #codeModal h3{color:#ffd700;font-size:14px;font-weight:900;letter-spacing:2px;margin-bottom:12px;}
+  #codeInput{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,200,0,.4);background:rgba(0,0,0,.5);color:#ffe680;font-size:16px;font-weight:800;text-align:center;letter-spacing:4px;outline:none;font-family:inherit;margin-bottom:10px;}
+  #codeInput:focus{border-color:#ffd700;box-shadow:0 0 12px rgba(255,200,0,.4);}
+  #codeSubmit{width:100%;padding:10px;border-radius:8px;border:none;background:linear-gradient(135deg,#d97706,#f59e0b);color:#fff;font-weight:900;font-size:13px;cursor:pointer;font-family:inherit;}
+  #codeSubmit:active{transform:scale(.96);}
+  #codeClose{position:absolute;top:8px;right:12px;background:none;border:none;color:#94a3b8;font-size:20px;cursor:pointer;}
+  #codeHint{font-size:10px;color:#64748b;margin-top:8px;}
+  .flyBtn{position:absolute;width:52px;height:52px;border-radius:50%;background:rgba(255,200,0,.18);border:2px solid #ffd700;color:#ffd700;font-weight:900;font-size:20px;pointer-events:auto;display:none;z-index:32;box-shadow:0 0 16px rgba(255,200,0,.4);}
+  .flyBtn:active{background:rgba(255,200,0,.4);transform:scale(.9);}
+  #btnFlyUp{right:90px;bottom:140px;}
+  #btnFlyDown{right:90px;bottom:78px;}
+  @media (max-width:640px){ #godPanel{top:auto;bottom:150px;left:10px;width:120px;} #godBigText{font-size:24px;} }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;800;900&display=swap" rel="stylesheet">
 </head>
@@ -154,7 +184,7 @@
     <div id="tutorial" style="position:absolute;top:64px;left:50%;transform:translateX(-50%);background:rgba(8,12,24,.85);color:#7dd3fc;padding:9px 20px;border-radius:12px;font-weight:700;font-size:12.5px;border:1px solid rgba(125,211,252,.4);display:none;backdrop-filter:blur(6px);max-width:85%;text-align:center;"></div>
 
     <div id="startOverlay" style="position:absolute;inset:0;background:radial-gradient(circle at 50% 35%,rgba(40,55,95,.92),rgba(4,6,14,.97));display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:auto;cursor:pointer;text-align:center;padding:20px;">
-      <div style="font-size:42px;font-weight:900;color:#fff;letter-spacing:2px;text-shadow:0 0 40px rgba(96,165,250,.9);">TEYVAT MINI</div>
+      <div id="gameTitle" style="font-size:42px;font-weight:900;color:#fff;letter-spacing:2px;text-shadow:0 0 40px rgba(96,165,250,.9);">TEYVAT MINI</div>
       <div style="color:#93c5fd;margin-top:4px;font-size:15px;font-weight:700;">RPG 3D bergaya Genshin · Final Edition</div>
       <div style="margin-top:28px;background:linear-gradient(90deg,#3b82f6,#8b5cf6,#ec4899);color:#fff;padding:13px 36px;border-radius:30px;font-weight:900;font-size:16px;box-shadow:0 10px 40px rgba(139,92,246,.6);">MULAI PETUALANGAN</div>
       <div id="startHint" style="color:#94a3b8;margin-top:20px;font-size:11.5px;line-height:1.9;max-width:440px;"></div>
@@ -190,6 +220,24 @@
       <div id="gfxNote">Pengaturan tersimpan otomatis & diterapkan langsung. Pilih preset untuk mengembalikan ke mode standar.</div>
     </div>
     <div id="gfxFps">-- FPS</div>
+    <!-- ===== CELESTIAL GOD MODE ===== -->
+    <div id="godBigText"></div>
+    <div id="godPanel">
+      <div class="godTitle"><span id="godStatusDot"></span>CELESTIAL GOD</div>
+      <button class="godBtn" id="godToggleBtn">GOD MODE: OFF</button>
+      <button class="godBtn" id="godJudgmentBtn" disabled>GOD'S JUDGMENT</button>
+      <button class="godBtn" id="godMeteorBtn" disabled>DIVINE METEOR</button>
+      <div id="godHpInfo">HP: <span id="godHpTxt">—</span></div>
+    </div>
+    <div id="codeModal">
+      <button id="codeClose">×</button>
+      <h3>★ KODE RAHASIA ★</h3>
+      <input id="codeInput" type="text" placeholder="•••••" maxlength="10" autocomplete="off">
+      <button id="codeSubmit">BUKA KEKUATAN</button>
+      <div id="codeHint">Masukkan kode kunci untuk membangkitkan kekuatan dewa.</div>
+    </div>
+    <button class="flyBtn" id="btnFlyUp">▲</button>
+    <button class="flyBtn" id="btnFlyDown">▼</button>
   </div>
 </div>
 
@@ -220,6 +268,29 @@
   function gfxMaxPR(){return GFX.renderQuality==='low'?1:(GFX.renderQuality==='medium'?1.25:1.5);}
   function gfxShadowRes(){return GFX.renderQuality==='high'?1024:512;}
   function gfxSave(){try{localStorage.setItem(GFX_KEY,JSON.stringify(GFX));}catch(e){}}
+  // ===== CELESTIAL GOD MODE (state & unlock) =====
+  var GOD_KEY='teyvatMiniGodUnlocked_v1';
+  var GOD={unlocked:false,active:false,transT:-1,transStage:0,lock:false,cdJudgment:0,cdMeteor:0,
+    meteor:0,meteorT:0,meteorCam:false,camBlend:0,mx:0,mz:0,meteorObj:null,scorch:null,scorchT:0,
+    flyUp:false,flyDown:false,echoT:0,orbitAngle:0,savedMaxHp:0,savedRatio:1};
+  try{GOD.unlocked=localStorage.getItem(GOD_KEY)==='1';}catch(e){}
+  var codeBuf='', _godTxtTimer=null;
+  function showGodText(main,sub){
+    var el=document.getElementById('godBigText');
+    el.innerHTML=main+(sub?'<span class="sub">'+sub+'</span>':'');
+    el.classList.add('show');
+    if(_godTxtTimer)clearTimeout(_godTxtTimer);
+    _godTxtTimer=setTimeout(function(){el.classList.remove('show');},2600);
+  }
+  function unlockGod(){
+    if(GOD.unlocked)return;
+    GOD.unlocked=true;
+    try{localStorage.setItem(GOD_KEY,'1');}catch(e){}
+    document.getElementById('godPanel').classList.add('unlocked');
+    showGodText('DIVINE POWER AWAKENED','THE GOD HAS RETURNED');
+    if(SFX&&SFX.levelup)SFX.levelup();
+  }
+  function tryCode(c){if(String(c||'').toLowerCase().trim()==='titut'){unlockGod();return true;}return false;}
   var wrap=document.getElementById('gameWrap'), container=document.getElementById('canvas3d');
   var W=wrap.clientWidth, H=wrap.clientHeight, ISLAND_R=38;
 
@@ -265,6 +336,10 @@
     plant:function(){tone(300,.2,'sine',.15,500);setTimeout(function(){tone(600,.25,'sine',.12);},150);}
   };
 
+  SFX.godTransform=function(){tone(220,1.2,'sawtooth',.16,880);tone(440,1.0,'sine',.1,1320);noise(.8,.12,3000);};
+  SFX.godJudgment=function(){tone(80,.6,'square',.24,40);noise(.5,.22,800);tone(660,.3,'sine',.14,990);};
+  SFX.meteorFall=function(){tone(900,1.4,'sawtooth',.14,120);noise(1.1,.1,2000);};
+  SFX.meteorImpact=function(){tone(60,1.2,'sine',.34,30);noise(1.0,.32,500);tone(120,.5,'square',.18,60);};
   var EL={PYRO:{c:0xff5533,css:'#ff5533',name:'PYRO'},HYDRO:{c:0x3399ff,css:'#3399ff',name:'HYDRO'},ELECTRO:{c:0xaa55ff,css:'#aa55ff',name:'ELECTRO'},ANEMO:{c:0x5eead4,css:'#5eead4',name:'ANEMO'}};
   var playerElem=EL.PYRO;
 
@@ -410,6 +485,32 @@
   var scarf=new THREE.Mesh(new THREE.BoxGeometry(.52,.16,.52),new THREE.MeshStandardMaterial({color:0xef4444,roughness:.8}));scarf.position.y=1.54;player.add(scarf);
   var buffRing=new THREE.Mesh(new THREE.TorusGeometry(.6,.05,8,24),new THREE.MeshBasicMaterial({color:0x5eead4,transparent:true,opacity:.7}));buffRing.rotation.x=Math.PI/2;buffRing.position.y=.05;buffRing.visible=false;player.add(buffRing);
   player.position.set(0,0,0);scene.add(player);
+  // ===== GOD MODE visuals (created once, reused) =====
+  var godMat=new THREE.MeshStandardMaterial({color:0xffd700,emissive:0xffaa00,emissiveIntensity:1.4,metalness:.85,roughness:.25});
+  var playerMeshes=[];
+  player.traverse(function(o){if(o.isMesh&&o.material){playerMeshes.push(o);o.userData.origMat=o.material;}});
+  var halo=new THREE.Group();
+  var haloR1=new THREE.Mesh(new THREE.TorusGeometry(.62,.05,8,32),new THREE.MeshBasicMaterial({color:0xffd700,transparent:true,opacity:.95}));haloR1.rotation.x=Math.PI/2;halo.add(haloR1);
+  var haloR2=new THREE.Mesh(new THREE.TorusGeometry(.8,.035,8,32),new THREE.MeshBasicMaterial({color:0xffaa00,transparent:true,opacity:.6}));haloR2.rotation.x=Math.PI/2;halo.add(haloR2);
+  halo.position.set(0,2.2,-0.3);halo.visible=false;player.add(halo);
+  var godLight=new THREE.PointLight(0xffd700,0,14);godLight.position.y=1.6;player.add(godLight);
+  // Cakra / divine wheel behind MC (golden, glowing, follows character)
+  var cakra=new THREE.Group();
+  var cakraMat=new THREE.MeshBasicMaterial({color:0xffd700,transparent:true,opacity:.95,side:THREE.DoubleSide});
+  var cakraGlowMat=new THREE.MeshBasicMaterial({color:0xffaa00,transparent:true,opacity:.35,side:THREE.DoubleSide,blending:THREE.AdditiveBlending,depthWrite:false});
+  cakra.add(new THREE.Mesh(new THREE.TorusGeometry(1.15,.07,8,40),cakraMat));
+  cakra.add(new THREE.Mesh(new THREE.TorusGeometry(.82,.045,8,32),cakraMat));
+  cakra.add(new THREE.Mesh(new THREE.TorusGeometry(1.4,.2,8,40),cakraGlowMat));
+  for(var si=0;si<8;si++){var sp=new THREE.Mesh(new THREE.BoxGeometry(.05,2.0,.05),cakraMat);sp.rotation.z=si/8*Math.PI;cakra.add(sp);}
+  cakra.add(new THREE.Mesh(new THREE.CircleGeometry(.2,16),cakraMat));
+  cakra.position.set(0,1.35,-1.0); cakra.visible=false; player.add(cakra);
+  var orbitN=18, orbitGeo=new THREE.BufferGeometry(), orbitPos=new Float32Array(orbitN*3);
+  orbitGeo.setAttribute('position',new THREE.BufferAttribute(orbitPos,3));
+  var godOrbit=new THREE.Points(orbitGeo,new THREE.PointsMaterial({color:0xffd700,size:.16,transparent:true,opacity:.9,depthWrite:false}));
+  godOrbit.visible=false;scene.add(godOrbit);
+  var echoPool=[];
+  for(var ei=0;ei<6;ei++){var er=new THREE.Mesh(new THREE.TorusGeometry(.6,.05,6,24),new THREE.MeshBasicMaterial({color:0xffd700,transparent:true,opacity:0}));er.rotation.x=Math.PI/2;er.visible=false;er.userData.life=0;scene.add(er);echoPool.push(er);}
+  var echoIdx=0;
 
   // CHESTS
   var chests=[];
@@ -810,12 +911,12 @@
     if(G.hitStop>0)G.hitStop-=rawDt;
     G.time+=rawDt;
 
-    if(G.started&&!G.dead){
+    if(G.started&&!G.dead&&!GOD.lock){
       var fwd=0,strafe=0;
       if(keys['KeyW'])fwd+=1;if(keys['KeyS'])fwd-=1;if(keys['KeyA'])strafe-=1;if(keys['KeyD'])strafe+=1;
       if(joy.active){fwd+=-joy.dy/50;strafe+=joy.dx/50;}
       var sprinting=keys['ShiftLeft']||keys['ShiftRight'];
-      var moving=(Math.abs(fwd)>0.05||Math.abs(strafe)>0.05);
+      var moving=(Math.abs(fwd)>0.05||Math.abs(strafe)>0.05); G.isMoving=moving;
       var speed=5.8;
       if(G.dodgeT>0){
         G.dodgeT-=dt;
@@ -837,12 +938,23 @@
           torso.position.y=1.1+Math.abs(Math.sin(G.time*wsp))*.05;
         } else {legL.rotation.x*=0.8;legR.rotation.x*=0.8;armL.rotation.x*=0.8;torso.position.y=1.1;}
       }
+      if(GOD.active){legL.rotation.x=.35;legR.rotation.x=-.35;armL.rotation.x=-.2;torso.position.y=1.15+Math.sin(G.time*2.2)*.06;}
       G.dodgeCd=Math.max(0,G.dodgeCd-dt);
       if(keys['Space']&&G.onGround&&G.st>10){G.velY=8.5;G.onGround=false;G.st-=12;}
-      G.velY-=22*dt;player.position.y+=G.velY*dt;
-      if(player.position.y<=0){player.position.y=0;G.velY=0;G.onGround=true;}
-      var pd=Math.hypot(player.position.x,player.position.z);
-      if(pd>ISLAND_R-1){player.position.x*=(ISLAND_R-1)/pd;player.position.z*=(ISLAND_R-1)/pd;}
+      if(!GOD.active){
+        G.velY-=22*dt;player.position.y+=G.velY*dt;
+        if(player.position.y<=0){player.position.y=0;G.velY=0;G.onGround=true;}
+        var pd=Math.hypot(player.position.x,player.position.z);
+        if(pd>ISLAND_R-1){player.position.x*=(ISLAND_R-1)/pd;player.position.z*=(ISLAND_R-1)/pd;}
+      } else {
+        var flySp=9;
+        if(keys['Space']||GOD.flyUp){player.position.y+=flySp*dt;}
+        else if((keys['ShiftLeft']||keys['ShiftRight']||GOD.flyDown)&&player.position.y>0.6){player.position.y-=flySp*dt;}
+        if(player.position.y<0.6)player.position.y=0.6+Math.abs(Math.sin(G.time*2.2))*.12;
+        G.velY=0; G.onGround=false;
+        var pd2=Math.hypot(player.position.x,player.position.z);
+        if(pd2>ISLAND_R+40){player.position.x*=(ISLAND_R+40)/pd2;player.position.z*=(ISLAND_R+40)/pd2;}
+      }
       for(var oi=0;oi<obstacles.length;oi++){
         var o=obstacles[oi];var odx=player.position.x-o.x,odz=player.position.z-o.z;var od=Math.hypot(odx,odz);
         if(od<o.r+.5&&od>.01){player.position.x=o.x+odx/od*(o.r+.5);player.position.z=o.z+odz/od*(o.r+.5);}
@@ -985,6 +1097,36 @@
       if(p.life<=0){scene.remove(p.mesh);particles.splice(pi,1);}
     }
 
+    // ===== GOD MODE updates =====
+    GOD.cdJudgment=Math.max(0,GOD.cdJudgment-rawDt); GOD.cdMeteor=Math.max(0,GOD.cdMeteor-rawDt);
+    if(GOD.transT>=0){
+      GOD.transT+=rawDt; var tt=GOD.transT;
+      godLight.intensity=Math.min(2.2,tt*2.2);
+      if(tt>=1&&GOD.transStage<1){GOD.transStage=1;setGodMaterials(true);spawnRing(player.position.clone(),0xffd700,12,.8);}
+      if(tt>=2&&GOD.transStage<2){GOD.transStage=2;spawnRing(player.position.clone(),0xffd700,22,1);flashScreen(.3,'#ffd700');}
+      G.camDist=(tt>=1&&tt<2)?5.2:7.5;
+      if(GFX.particles&&Math.random()<.5)spawnParticles(player.position.clone().setY(1),0xffd700,3,3);
+      if(tt>=3){G.camDist=7.5;finishGodTransform();}
+    }
+    if(GOD.active||GOD.transT>=0){
+      halo.rotation.y=G.time*1.5; halo.children[1].rotation.z=G.time*2.5;
+      cakra.rotation.z=G.time*1.2; cakra.children[2].rotation.z=-G.time*.6;
+      GOD.orbitAngle+=rawDt*2;
+      if(godOrbit.visible){
+        for(var oi=0;oi<orbitN;oi++){var oa=GOD.orbitAngle+oi/orbitN*Math.PI*2;orbitPos[oi*3]=player.position.x+Math.cos(oa)*1.1;orbitPos[oi*3+1]=1.1+Math.sin(oa*2+G.time*3)*.35;orbitPos[oi*3+2]=player.position.z+Math.sin(oa)*1.1;}
+        orbitGeo.attributes.position.needsUpdate=true;
+      }
+      if(GOD.active&&G.isMoving){GOD.echoT-=rawDt;if(GOD.echoT<=0){GOD.echoT=.16;var er=echoPool[echoIdx++%echoPool.length];er.visible=true;er.userData.life=.6;er.position.set(player.position.x,.12,player.position.z);er.scale.setScalar(1);er.material.opacity=.5;}}
+    }
+    for(var eki=0;eki<echoPool.length;eki++){var erk=echoPool[eki];if(erk.userData.life>0){erk.userData.life-=rawDt;var lp=Math.max(0,erk.userData.life/.6);erk.scale.setScalar(1+(1-lp)*3.5);erk.material.opacity=lp*.5;if(erk.userData.life<=0){erk.visible=false;erk.material.opacity=0;}}}
+    if(GOD.meteor===1){
+      GOD.meteorT+=rawDt; var mt=GOD.meteorT;
+      if(mt>.8&&GOD.meteorObj){GOD.meteorObj.position.y=Math.max(0,60-(mt-.8)/1.8*60);GOD.meteorObj.rotation.y+=rawDt*3;}
+      if(mt>=2.6){meteorImpact();}
+    } else if(GOD.meteor===2){
+      GOD.meteorT+=rawDt;
+      if(GOD.scorch){GOD.scorch.t+=rawDt;var so=Math.max(0,1-GOD.scorch.t/6);GOD.scorch.mesh.material.opacity=so*.85;GOD.scorch.ring.material.opacity=so*.9;if(GOD.scorch.t>=6){scene.remove(GOD.scorch.mesh);scene.remove(GOD.scorch.ring);GOD.scorch=null;GOD.meteor=0;}}
+    }
     var _waterStep=GFX.water==='low'?3:1; if(!G.started)_waterStep=6;
     var _waterAmp=GFX.water==='low'?.06:.12;
     if(_frameCount%_waterStep===0){
@@ -1005,17 +1147,34 @@
 
     var dayT=(G.time%140)/140;
     var night=Math.max(0,-Math.sin(dayT*Math.PI*2));
-    _skyCol.setHSL(.58-night*.08,.55-night*.3,.62-night*.45);
-    scene.background.copy(_skyCol);scene.fog.color.copy(_skyCol);
-    sun.intensity=.5+.9*Math.max(0,Math.sin(dayT*Math.PI*2));
-    starMat.opacity=Math.min(.9,night*1.5);hemi.intensity=.8-night*.4;
+    if(GOD.meteor>0||GOD.meteorCam){
+      _skyCol.setRGB(0.05,0.03,0.13);
+      scene.background.copy(_skyCol);scene.fog.color.copy(_skyCol);
+      sun.intensity=0.15; starMat.opacity=0.9; hemi.intensity=0.25;
+    } else {
+      _skyCol.setHSL(.58-night*.08,.55-night*.3,.62-night*.45);
+      scene.background.copy(_skyCol);scene.fog.color.copy(_skyCol);
+      sun.intensity=.5+.9*Math.max(0,Math.sin(dayT*Math.PI*2));
+      starMat.opacity=Math.min(.9,night*1.5);hemi.intensity=.8-night*.4;
+    }
 
-    var camX=player.position.x+Math.sin(G.yaw)*Math.cos(G.pitch)*G.camDist;
-    var camZ=player.position.z+Math.cos(G.yaw)*Math.cos(G.pitch)*G.camDist;
-    var camY=player.position.y+1.6+Math.sin(-G.pitch)*G.camDist;
-    if(G.shake>0){camX+=(Math.random()-.5)*G.shake*.5;camY+=(Math.random()-.5)*G.shake*.5;camZ+=(Math.random()-.5)*G.shake*.5;}
-    camera.position.set(camX,camY,camZ);
-    camera.lookAt(player.position.x,player.position.y+1.4,player.position.z);
+    if(GOD.meteorCam){
+      if(GOD.meteorObj){
+        camera.position.set(GOD.mx+Math.sin(G.yaw)*7,2.2,GOD.mz+Math.cos(G.yaw)*7);
+        camera.lookAt(GOD.meteorObj.position);
+      } else {
+        camera.position.set(GOD.mx+Math.sin(G.yaw)*7,3,GOD.mz+Math.cos(G.yaw)*7);
+        camera.lookAt(GOD.mx,1,GOD.mz);
+      }
+    } else {
+      var camX=player.position.x+Math.sin(G.yaw)*Math.cos(G.pitch)*G.camDist;
+      var camZ=player.position.z+Math.cos(G.yaw)*Math.cos(G.pitch)*G.camDist;
+      var camY=player.position.y+1.6+Math.sin(-G.pitch)*G.camDist;
+      if(G.shake>0){camX+=(Math.random()-.5)*G.shake*.5;camY+=(Math.random()-.5)*G.shake*.5;camZ+=(Math.random()-.5)*G.shake*.5;}
+      _v2.set(camX,camY,camZ);
+      if(GOD.camBlend>0){GOD.camBlend-=rawDt;camera.position.lerp(_v2,Math.min(1,rawDt*5));}else{camera.position.copy(_v2);}
+      camera.lookAt(player.position.x,player.position.y+1.4,player.position.z);
+    }
 
     hpBar.style.width=(G.hp/G.maxHp*100)+'%';hpTxt.textContent=Math.ceil(G.hp)+'/'+G.maxHp;
     stBar.style.width=(G.st/G.maxSt*100)+'%';enBar.style.width=(G.en/G.maxEn*100)+'%';expBar.style.width=(G.exp/(G.lvl*60)*100)+'%';
@@ -1025,6 +1184,7 @@
     qCd.style.height=G.en>=G.maxEn?'0%':'100%';qBtn.style.opacity=G.en>=G.maxEn?1:.5;
     vignette.style.opacity=G.hp/G.maxHp<.3?(.5+Math.sin(G.time*6)*.3):0;
     if(G.comboCount>1){comboEl.style.opacity=1;comboNum.textContent=G.comboCount;}else{comboEl.style.opacity=0;}
+    if(GOD.unlocked)updateGodUI();
 
     // minimap (throttled every 3 frames)
     if(_frameCount%3===0){
@@ -1048,12 +1208,129 @@
   }
 
   function hurtPlayer(dmg){
+    // Flying high in God Mode: enemies cannot reach MC
+    if(GOD.active && player.position.y>1.5){
+      dmgNumber(_v1.set(player.position.x,player.position.y+2.4,player.position.z),'MISS','#cbd5e1');
+      return;
+    }
     G.hp-=dmg;G.hitIframe=0.7;G.lastHitT=0;G.shake=Math.max(G.shake,0.5);
     flashScreen(0.3,'#dc2626');SFX.hurt();
     dmgNumber(_v1.set(player.position.x, player.position.y+2.4, player.position.z), '-'+Math.round(dmg), '#f87171', true);
     if(G.hp<=0){ G.hp=0; G.dead=true; G.deadT=0; deathOv.style.display='flex'; }
   }
 
+  // ===== GOD MODE core functions =====
+  function setGodMaterials(on){
+    for(var mi=0;mi<playerMeshes.length;mi++){playerMeshes[mi].material=on?godMat:playerMeshes[mi].userData.origMat;}
+    halo.visible=on; godOrbit.visible=on; cakra.visible=on; godLight.intensity=on?2.2:0;
+  }
+  function updateGodUI(){
+    var tb=document.getElementById('godToggleBtn'), jb=document.getElementById('godJudgmentBtn'), mb=document.getElementById('godMeteorBtn');
+    tb.classList.toggle('on',GOD.active);
+    tb.textContent=GOD.active?'GOD MODE: ON':'GOD MODE: OFF';
+    jb.disabled=!GOD.active||GOD.lock||GOD.cdJudgment>0;
+    mb.disabled=!GOD.active||GOD.lock||GOD.cdMeteor>0||GOD.meteor>0;
+    document.getElementById('godStatusDot').classList.toggle('on',GOD.active);
+    document.getElementById('godHpTxt').textContent=Math.ceil(G.hp)+'/'+G.maxHp+(GOD.active?' (×5)':'');
+    var fu=document.getElementById('btnFlyUp'), fd=document.getElementById('btnFlyDown');
+    var showFly=GOD.active&&isMobile;
+    fu.style.display=showFly?'block':'none'; fd.style.display=showFly?'block':'none';
+  }
+  function activateGod(){
+    if(GOD.active||GOD.transT>=0)return;
+    ensureAudio(); GOD.transT=0; GOD.transStage=0; GOD.lock=true;
+    if(SFX.godTransform)SFX.godTransform();
+    updateGodUI();
+  }
+  function finishGodTransform(){
+    GOD.savedMaxHp=G.maxHp; GOD.savedRatio=Math.min(1,G.hp/G.maxHp);
+    G.maxHp=G.maxHp*5; G.hp=Math.round(G.maxHp*GOD.savedRatio);
+    GOD.active=true; GOD.lock=false; GOD.transT=-1;
+    showGodText('GOD MODE ACTIVATED');
+    updateGodUI();
+  }
+  function deactivateGod(){
+    if(!GOD.active&&GOD.transT<0)return;
+    GOD.active=false; GOD.transT=-1; GOD.lock=false;
+    setGodMaterials(false); G.camDist=7.5;
+    G.maxHp=GOD.savedMaxHp||G.maxHp; G.hp=Math.max(1,Math.min(Math.round(G.maxHp*GOD.savedRatio),G.maxHp));
+    if(player.position.y<=0.6){player.position.y=0;G.velY=0;G.onGround=true;}else{G.velY=0;G.onGround=false;}
+    showGodText('GOD MODE DEACTIVATED');
+    updateGodUI();
+  }
+  function godJudgment(){
+    if(!GOD.active||GOD.lock||GOD.cdJudgment>0)return;
+    GOD.cdJudgment=4; ensureAudio();
+    if(SFX.godJudgment)SFX.godJudgment();
+    spawnRing(player.position.clone(),0xffd700,30,1.2);
+    var pn=GFX.particles?(GFX.renderQuality==='low'?15:40):0;
+    if(pn>0)spawnParticles(player.position.clone().setY(1),0xffd700,pn,8);
+    flashScreen(.4,'#ffd700'); G.shake=Math.max(G.shake,.8);
+    var all=boss&&boss.alive?enemies.concat([boss]):enemies;
+    for(var ji=0;ji<all.length;ji++){var en=all[ji];if(!en.alive)continue;var d=Math.hypot(en.group.position.x-player.position.x,en.group.position.z-player.position.z);if(d<35){damageEnemy(en,999999,null,false);}}
+    showGodText('DIVINE JUDGMENT');
+    updateGodUI();
+  }
+  function divineMeteor(){
+    if(!GOD.active||GOD.lock||GOD.cdMeteor>0||GOD.meteor>0)return;
+    GOD.cdMeteor=10; GOD.lock=true; GOD.meteor=1; GOD.meteorT=0; GOD.meteorCam=true;
+    GOD.mx=player.position.x; GOD.mz=player.position.z; ensureAudio();
+    if(SFX.meteorFall)SFX.meteorFall();
+    var mg=new THREE.Group();
+    var core=new THREE.Mesh(new THREE.SphereGeometry(3.5,16,12),new THREE.MeshStandardMaterial({color:0x3a2a1a,emissive:0xff6600,emissiveIntensity:1.2,roughness:.6}));
+    mg.add(core);
+    var fire=new THREE.Mesh(new THREE.SphereGeometry(4.6,12,10),new THREE.MeshBasicMaterial({color:0xffaa00,transparent:true,opacity:.55}));
+    mg.add(fire);
+    mg.position.set(GOD.mx,60,GOD.mz);
+    scene.add(mg); GOD.meteorObj=mg;
+    showGodText('SKY AWAKENING');
+    updateGodUI();
+  }
+  function meteorImpact(){
+    if(SFX.meteorImpact)SFX.meteorImpact();
+    if(GOD.meteorObj){scene.remove(GOD.meteorObj);GOD.meteorObj=null;}
+    spawnRing(_v1.set(GOD.mx,0,GOD.mz),0xffd700,40,1.4);
+    var pn=GFX.particles?(GFX.renderQuality==='low'?30:70):0;
+    if(pn>0)spawnParticles(_v1.set(GOD.mx,2,GOD.mz),0xff8800,pn,12);
+    flashScreen(.7,'#fff3c4'); G.shake=1.4; G.hitStop=.12;
+    var dmg=100000; if(G.buffT>0)dmg=dmg/1.2;
+    var all=boss&&boss.alive?enemies.concat([boss]):enemies;
+    for(var mi=0;mi<all.length;mi++){var en=all[mi];if(!en.alive)continue;var d=Math.hypot(en.group.position.x-GOD.mx,en.group.position.z-GOD.mz);if(d<26){damageEnemy(en,dmg,null,false);}}
+    // scorch crater (temporary, does not modify original ground)
+    var sc=new THREE.Mesh(new THREE.CircleGeometry(9,32),new THREE.MeshBasicMaterial({color:0x1a0f00,transparent:true,opacity:.85}));
+    sc.rotation.x=-Math.PI/2; sc.position.set(GOD.mx,.06,GOD.mz); scene.add(sc);
+    var crack=new THREE.Mesh(new THREE.TorusGeometry(9,.12,6,32),new THREE.MeshBasicMaterial({color:0xffaa00,transparent:true,opacity:.9}));
+    crack.rotation.x=Math.PI/2; crack.position.set(GOD.mx,.08,GOD.mz); scene.add(crack);
+    GOD.scorch={mesh:sc,ring:crack,t:0};
+    GOD.meteor=2; GOD.meteorT=0;
+    setTimeout(function(){GOD.meteorCam=false;GOD.camBlend=.6;},1200);
+    setTimeout(function(){GOD.lock=false;updateGodUI();},1400);
+    showGodText('DIVINE METEOR','100,000 DAMAGE');
+  }
+  // secret code: keyboard sequence "titut"
+  window.addEventListener('keydown',function(e){
+    if(e.key&&e.key.length===1){codeBuf=(codeBuf+e.key.toLowerCase()).slice(-5);if(codeBuf==='titut'){unlockGod();codeBuf='';}}
+  });
+  // code modal wiring
+  var codeModal=document.getElementById('codeModal'), codeInput=document.getElementById('codeInput');
+  document.getElementById('codeClose').addEventListener('click',function(){codeModal.classList.remove('show');});
+  document.getElementById('codeSubmit').addEventListener('click',function(){
+    if(tryCode(codeInput.value)){codeModal.classList.remove('show');codeInput.value='';}
+    else{codeInput.value='';codeInput.placeholder='KODE SALAH';setTimeout(function(){codeInput.placeholder='•••••';},1200);}
+  });
+  codeInput.addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('codeSubmit').click();});
+  // title tap x5 opens code modal (mobile access)
+  var titleTap=0, titleTimer=null;
+  var titleEl=document.getElementById('gameTitle');
+  if(titleEl){titleEl.style.cursor='pointer';titleEl.addEventListener('click',function(e){e.stopPropagation();titleTap++;if(titleTimer)clearTimeout(titleTimer);titleTimer=setTimeout(function(){titleTap=0;},2000);if(titleTap>=5){titleTap=0;codeModal.classList.add('show');setTimeout(function(){codeInput.focus();},300);}});}
+  // god panel buttons
+  document.getElementById('godToggleBtn').addEventListener('click',function(e){e.stopPropagation();if(GOD.active||GOD.transT>=0)deactivateGod();else activateGod();});
+  document.getElementById('godJudgmentBtn').addEventListener('click',function(e){e.stopPropagation();godJudgment();});
+  document.getElementById('godMeteorBtn').addEventListener('click',function(e){e.stopPropagation();divineMeteor();});
+  // mobile fly buttons
+  function bindHold(id,key){var b=document.getElementById(id);if(!b)return;var on=function(e){e.preventDefault();e.stopPropagation();GOD[key]=true;};var off=function(e){e.preventDefault();GOD[key]=false;};b.addEventListener('touchstart',on,{passive:false});b.addEventListener('touchend',off);b.addEventListener('touchcancel',off);b.addEventListener('mousedown',on);b.addEventListener('mouseup',off);b.addEventListener('mouseleave',off);}
+  bindHold('btnFlyUp','flyUp'); bindHold('btnFlyDown','flyDown');
+  if(GOD.unlocked)document.getElementById('godPanel').classList.add('unlocked');
   // ===== APPLY GRAPHICS SETTINGS (real render-load control) =====
   function applyGraphics(){
     // Render quality -> pixel ratio
