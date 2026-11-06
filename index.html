@@ -15,6 +15,38 @@
   @keyframes toastIn{0%{transform:translateX(-50%) scale(.5);opacity:0}15%{transform:translateX(-50%) scale(1.1);opacity:1}80%{opacity:1}100%{transform:translateX(-50%) scale(1);opacity:0}}
   .mBtn{transition:transform .1s,filter .1s;touch-action:manipulation;font-family:inherit;}
   .mBtn:active{transform:scale(.9);filter:brightness(1.5);}
+  /* ===== Graphics Settings UI ===== */
+  #gfxBtn{position:absolute;top:16px;right:148px;width:38px;height:38px;border-radius:50%;background:rgba(8,12,24,.6);backdrop-filter:blur(6px);border:1px solid rgba(251,191,36,.45);display:flex;align-items:center;justify-content:center;cursor:pointer;pointer-events:auto;transition:transform .2s,border-color .2s;z-index:30;}
+  #gfxBtn:hover{border-color:rgba(251,191,36,.9);transform:rotate(45deg);}
+  #gfxBtn:active{transform:scale(.9);}
+  #gfxPanel{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(.92);width:92%;max-width:430px;max-height:86vh;overflow-y:auto;background:linear-gradient(160deg,rgba(12,18,34,.96),rgba(20,14,8,.96));border:1px solid rgba(251,191,36,.55);border-radius:18px;padding:18px 18px 16px;pointer-events:auto;display:none;z-index:50;backdrop-filter:blur(10px);box-shadow:0 20px 60px rgba(0,0,0,.7),0 0 40px rgba(251,191,36,.15);opacity:0;transition:opacity .25s,transform .25s;}
+  #gfxPanel.open{display:block;opacity:1;transform:translate(-50%,-50%) scale(1);}
+  #gfxPanel h2{color:#fbbf24;font-size:17px;font-weight:900;letter-spacing:1px;margin-bottom:3px;text-shadow:0 0 14px rgba(251,191,36,.5);display:flex;align-items:center;justify-content:space-between;}
+  #gfxClose{background:none;border:none;color:#94a3b8;font-size:22px;cursor:pointer;line-height:1;padding:0 4px;}
+  #gfxClose:hover{color:#fff;}
+  .gfxSub{color:#7dd3fc;font-size:10.5px;font-weight:700;letter-spacing:1.5px;margin:14px 0 8px;text-transform:uppercase;}
+  .gfxPresetRow{display:flex;gap:8px;}
+  .gfxPreset{flex:1;padding:9px 4px;border-radius:10px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.05);color:#cbd5e1;font-weight:800;font-size:12px;cursor:pointer;transition:all .15s;font-family:inherit;}
+  .gfxPreset.active{background:linear-gradient(135deg,rgba(251,191,36,.25),rgba(245,158,11,.15));border-color:#fbbf24;color:#fde68a;box-shadow:0 0 16px rgba(251,191,36,.3);}
+  .gfxPreset:active{transform:scale(.95);}
+  #gfxCustomBadge{display:none;margin-top:8px;font-size:10.5px;font-weight:800;color:#f0abfc;background:rgba(217,70,239,.12);border:1px solid rgba(217,70,239,.4);padding:4px 10px;border-radius:10px;text-align:center;letter-spacing:.5px;}
+  #gfxCustomBadge.show{display:block;}
+  .gfxRow{display:flex;align-items:center;justify-content:space-between;padding:9px 2px;border-bottom:1px solid rgba(255,255,255,.07);gap:8px;}
+  .gfxRow label{color:#e2e8f0;font-size:12.5px;font-weight:700;}
+  .gfxSeg{display:flex;background:rgba(0,0,0,.4);border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,.12);}
+  .gfxSeg button{background:none;border:none;color:#94a3b8;font-size:11px;font-weight:800;padding:6px 10px;cursor:pointer;transition:all .15s;font-family:inherit;}
+  .gfxSeg button.active{background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;}
+  .gfxSeg button:active{transform:scale(.94);}
+  .gfxToggle{width:42px;height:22px;border-radius:11px;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.2);position:relative;cursor:pointer;transition:background .2s;flex-shrink:0;}
+  .gfxToggle::after{content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#94a3b8;transition:all .2s;}
+  .gfxToggle.on{background:linear-gradient(135deg,#65a30d,#16a34a);border-color:#84cc16;}
+  .gfxToggle.on::after{left:22px;background:#ecfccb;}
+  #gfxReset{width:100%;margin-top:14px;padding:10px;border-radius:10px;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.5);color:#fca5a5;font-weight:800;font-size:12.5px;cursor:pointer;transition:all .15s;font-family:inherit;}
+  #gfxReset:hover{background:rgba(239,68,68,.3);}
+  #gfxReset:active{transform:scale(.97);}
+  #gfxNote{margin-top:10px;font-size:10px;color:#64748b;text-align:center;line-height:1.5;}
+  #gfxFps{position:absolute;bottom:8px;right:12px;font-size:10px;font-weight:800;color:rgba(148,163,184,.7);pointer-events:none;z-index:20;}
+  @media (max-width:640px){ #gfxBtn{right:auto;left:12px;top:142px;} #gfxPanel{max-height:80vh;} }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;800;900&display=swap" rel="stylesheet">
 </head>
@@ -134,6 +166,30 @@
     </div>
 
     <div id="toast" style="position:absolute;top:80px;left:50%;transform:translateX(-50%) scale(.7);opacity:0;background:linear-gradient(90deg,#f59e0b,#ef4444);color:#fff;padding:12px 30px;border-radius:30px;font-weight:900;font-size:18px;box-shadow:0 0 40px rgba(245,158,11,.7);letter-spacing:.5px;white-space:nowrap;max-width:90%;overflow:hidden;text-overflow:ellipsis;">LEVEL UP!</div>
+    <!-- Graphics Settings button & panel -->
+    <div id="gfxBtn" title="Pengaturan Grafik">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </div>
+    <div id="gfxPanel">
+      <h2><span>PENGATURAN GRAFIK</span><button id="gfxClose">×</button></h2>
+      <div class="gfxSub">Preset Kualitas</div>
+      <div class="gfxPresetRow">
+        <button class="gfxPreset" data-preset="low">LOW</button>
+        <button class="gfxPreset" data-preset="medium">MEDIUM</button>
+        <button class="gfxPreset" data-preset="high">HIGH</button>
+      </div>
+      <div id="gfxCustomBadge">Mode Kustom (Custom) — pengaturan manual aktif</div>
+      <div class="gfxSub">Pengaturan Manual</div>
+      <div class="gfxRow"><label>Bayangan (Shadow)</label><div class="gfxToggle" data-key="shadow"></div></div>
+      <div class="gfxRow"><label>Kualitas Render</label><div class="gfxSeg" data-key="renderQuality"><button data-val="low">LOW</button><button data-val="medium">MED</button><button data-val="high">HIGH</button></div></div>
+      <div class="gfxRow"><label>Kepadatan Vegetasi</label><div class="gfxSeg" data-key="vegetation"><button data-val="low">LOW</button><button data-val="medium">MED</button><button data-val="high">HIGH</button></div></div>
+      <div class="gfxRow"><label>Efek Partikel</label><div class="gfxToggle" data-key="particles"></div></div>
+      <div class="gfxRow"><label>Kualitas Air</label><div class="gfxSeg" data-key="water"><button data-val="low">LOW</button><button data-val="high">HIGH</button></div></div>
+      <div class="gfxRow"><label>Batas FPS</label><div class="gfxSeg" data-key="fpsLimit"><button data-val="30">30</button><button data-val="45">45</button><button data-val="60">60</button></div></div>
+      <button id="gfxReset">Reset ke Pengaturan Default</button>
+      <div id="gfxNote">Pengaturan tersimpan otomatis & diterapkan langsung. Pilih preset untuk mengembalikan ke mode standar.</div>
+    </div>
+    <div id="gfxFps">-- FPS</div>
   </div>
 </div>
 
@@ -151,12 +207,25 @@
     document.getElementById('skillBar').style.display='none';
   }
 
+  // ===== GRAPHICS SETTINGS (load before renderer creation) =====
+  var GFX_KEY='teyvatMiniGfx_v1';
+  var GFX_PRESETS={
+    low:   {shadow:false, renderQuality:'low',    vegetation:'low',    particles:false, water:'low',  fpsLimit:30},
+    medium:{shadow:true,  renderQuality:'medium', vegetation:'medium', particles:true,  water:'high', fpsLimit:45},
+    high:  {shadow:true,  renderQuality:'high',   vegetation:'high',   particles:true,  water:'high', fpsLimit:60}
+  };
+  var GFX_DEFAULT_PRESET=isMobile?'low':'medium';
+  var GFX=JSON.parse(JSON.stringify(GFX_PRESETS[GFX_DEFAULT_PRESET])); GFX.preset=GFX_DEFAULT_PRESET;
+  try{var _saved=localStorage.getItem(GFX_KEY);if(_saved){var _p=JSON.parse(_saved);for(var _k in _p){if(_p[_k]!==undefined)GFX[_k]=_p[_k];}}}catch(e){}
+  function gfxMaxPR(){return GFX.renderQuality==='low'?1:(GFX.renderQuality==='medium'?1.25:1.5);}
+  function gfxShadowRes(){return GFX.renderQuality==='high'?1024:512;}
+  function gfxSave(){try{localStorage.setItem(GFX_KEY,JSON.stringify(GFX));}catch(e){}}
   var wrap=document.getElementById('gameWrap'), container=document.getElementById('canvas3d');
   var W=wrap.clientWidth, H=wrap.clientHeight, ISLAND_R=38;
 
-  var renderer=new THREE.WebGLRenderer({antialias:true});
-  renderer.setSize(W,H); renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-  renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+  var renderer=new THREE.WebGLRenderer({antialias:GFX.renderQuality!=='low'});
+  renderer.setSize(W,H); renderer.setPixelRatio(Math.min(window.devicePixelRatio,gfxMaxPR()));
+  renderer.shadowMap.enabled=GFX.shadow; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
   container.appendChild(renderer.domElement);
 
   var scene=new THREE.Scene();
@@ -166,8 +235,8 @@
 
   var hemi=new THREE.HemisphereLight(0xbfe3ff,0x4a7c3a,0.8); scene.add(hemi);
   var sun=new THREE.DirectionalLight(0xfff2d6,1.2);
-  sun.position.set(30,55,20); sun.castShadow=true;
-  sun.shadow.mapSize.set(2048,2048);
+  sun.position.set(30,55,20); sun.castShadow=GFX.shadow;
+  sun.shadow.mapSize.set(gfxShadowRes(),gfxShadowRes());
   sun.shadow.camera.left=-55; sun.shadow.camera.right=55; sun.shadow.camera.top=55; sun.shadow.camera.bottom=-55; sun.shadow.camera.far=140; sun.shadow.bias=-0.0005;
   scene.add(sun);
 
@@ -222,7 +291,7 @@
   var waterPos=waterGeo.attributes.position;
 
   var hillMat=new THREE.MeshStandardMaterial({color:0x4e8f3c,roughness:1});
-  [[-20,16,5.5,2],[24,-12,6.5,2.4],[10,24,4.5,1.5],[-24,-20,5,1.8],[-8,-26,4,1.3]].forEach(function(h){var hl=new THREE.Mesh(new THREE.SphereGeometry(h[2],16,12,0,Math.PI*2,0,Math.PI/2),hillMat);hl.position.set(h[0],0,h[1]);hl.scale.y=h[3]/h[2]*.55;hl.receiveShadow=true;hl.castShadow=true;scene.add(hl);});
+  [[-18,28,5.5,2],[24,-12,6.5,2.4],[10,24,4.5,1.5],[-24,-20,5,1.8],[-8,-26,4,1.3]].forEach(function(h){var hl=new THREE.Mesh(new THREE.SphereGeometry(h[2],16,12,0,Math.PI*2,0,Math.PI/2),hillMat);hl.position.set(h[0],0,h[1]);hl.scale.y=h[3]/h[2]*.55;hl.receiveShadow=true;hl.castShadow=true;scene.add(hl);});
 
   var obstacles=[];
   var trunkMat=new THREE.MeshStandardMaterial({color:0x6d4c2e,roughness:1});
@@ -238,17 +307,18 @@
   var rockMat=new THREE.MeshStandardMaterial({color:0x8a8a8a,roughness:.9,flatShading:true});
   function makeRock(x,z,s){var r=new THREE.Mesh(new THREE.DodecahedronGeometry(s,0),rockMat);r.position.set(x,s*.5,z);r.rotation.set(Math.random(),Math.random(),Math.random());r.castShadow=true;r.receiveShadow=true;scene.add(r);obstacles.push({x:x,z:z,r:s*.9});}
   var i;
-  for(i=0;i<18;i++){var a=Math.random()*Math.PI*2,rr=9+Math.random()*26;var tx=Math.cos(a)*rr,tz=Math.sin(a)*rr; if(Math.abs(tx+22)<8&&Math.abs(tz-16)<8) continue; makeTree(tx,tz,.8+Math.random()*.7,Math.random()<.4?1:0);}
-  for(i=0;i<10;i++){var a2=Math.random()*Math.PI*2,rr2=7+Math.random()*28;makeRock(Math.cos(a2)*rr2,Math.sin(a2)*rr2,.5+Math.random());}
+  for(i=0;i<18;i++){var a=Math.random()*Math.PI*2,rr=9+Math.random()*26;var tx=Math.cos(a)*rr,tz=Math.sin(a)*rr; if(Math.abs(tx+22)<10&&Math.abs(tz-16)<10) continue; makeTree(tx,tz,.8+Math.random()*.7,Math.random()<.4?1:0);}
+  for(i=0;i<10;i++){var a2=Math.random()*Math.PI*2,rr2=7+Math.random()*28;var rx2=Math.cos(a2)*rr2,rz2=Math.sin(a2)*rr2; if(Math.abs(rx2+22)<10&&Math.abs(rz2-16)<10){i--;continue;} makeRock(rx2,rz2,.5+Math.random());}
 
   var grassGeo=new THREE.ConeGeometry(.06,.5,4),grassMat=new THREE.MeshStandardMaterial({color:0x66bb44,roughness:1});
   var grass=new THREE.InstancedMesh(grassGeo,grassMat,1000);
   var m4=new THREE.Matrix4(),q0=new THREE.Quaternion(),scl=new THREE.Vector3(1,1,1),gi=0;
-  for(i=0;i<1000 && gi<1000;i++){var ga=Math.random()*Math.PI*2,gr=Math.sqrt(Math.random())*(ISLAND_R-3);var gx=Math.cos(ga)*gr,gz=Math.sin(ga)*gr; if(Math.abs(gx)<2&&Math.abs(gz)<2)continue; if(Math.abs(gx+22)<7&&Math.abs(gz-16)<7)continue; m4.compose(new THREE.Vector3(gx,.25,gz),q0,scl);grass.setMatrixAt(gi++,m4);}
-  grass.count=gi; grass.receiveShadow=true; scene.add(grass);
+  for(i=0;i<1000 && gi<1000;i++){var ga=Math.random()*Math.PI*2,gr=Math.sqrt(Math.random())*(ISLAND_R-3);var gx=Math.cos(ga)*gr,gz=Math.sin(ga)*gr; if(Math.abs(gx)<2&&Math.abs(gz)<2)continue; if(Math.abs(gx+22)<9&&Math.abs(gz-16)<9)continue; m4.compose(new THREE.Vector3(gx,.25,gz),q0,scl);grass.setMatrixAt(gi++,m4);}
+  grass.count=gi; grass.receiveShadow=true; scene.add(grass); var grassTotal=gi;
 
   var flowerColors=[0xff6b9d,0xffd93d,0xffffff,0xc77dff];
-  for(i=0;i<50;i++){var fa=Math.random()*Math.PI*2,fr=Math.sqrt(Math.random())*(ISLAND_R-4);var fx=Math.cos(fa)*fr,fz=Math.sin(fa)*fr; if(Math.abs(fx+22)<7&&Math.abs(fz-16)<7)continue; var stm=new THREE.Mesh(new THREE.CylinderGeometry(.02,.02,.3,4),new THREE.MeshStandardMaterial({color:0x4a8c3a}));stm.position.set(fx,.15,fz);scene.add(stm);var bl=new THREE.Mesh(new THREE.SphereGeometry(.09,6,6),new THREE.MeshStandardMaterial({color:flowerColors[Math.floor(Math.random()*4)],roughness:.8}));bl.position.set(fx,.32,fz);scene.add(bl);}
+  var flowerMeshes=[];
+  for(i=0;i<50;i++){var fa=Math.random()*Math.PI*2,fr=Math.sqrt(Math.random())*(ISLAND_R-4);var fx=Math.cos(fa)*fr,fz=Math.sin(fa)*fr; if(Math.abs(fx+22)<9&&Math.abs(fz-16)<9)continue; var stm=new THREE.Mesh(new THREE.CylinderGeometry(.02,.02,.3,4),new THREE.MeshStandardMaterial({color:0x4a8c3a}));stm.position.set(fx,.15,fz);scene.add(stm);var bl=new THREE.Mesh(new THREE.SphereGeometry(.09,6,6),new THREE.MeshStandardMaterial({color:flowerColors[Math.floor(Math.random()*4)],roughness:.8}));bl.position.set(fx,.32,fz);scene.add(bl);flowerMeshes.push(stm,bl);}
 
   // Statue of Seven
   var statue=new THREE.Group();
@@ -275,8 +345,8 @@
   var wArmR=wArmL.clone();wArmR.position.x=.42;wArmR.rotation.z=-.3;wowo.add(wArmR);
   var qMark=new THREE.Mesh(new THREE.SphereGeometry(.22,12,10),new THREE.MeshBasicMaterial({color:0xfbbf24}));
   qMark.position.y=2.6;wowo.add(qMark);
-  wowo.position.set(-22,0,10.5);wowo.rotation.y=Math.PI;scene.add(wowo);
-  obstacles.push({x:-22,z:10.5,r:.8});
+  wowo.position.set(-22,0,8.5);wowo.rotation.y=0;scene.add(wowo);
+  obstacles.push({x:-22,z:8.5,r:.8});
   var wowoTalked=false, saplings=0, planted=0, wowoRewarded=false;
 
   // Planting spots
@@ -409,8 +479,19 @@
   // PARTICLES
   var particles=[];
   var pGeo=new THREE.SphereGeometry(.09,6,6);
-  function spawnParticles(pos,color,count,spd){for(var k=0;k<count;k++){if(particles.length>100)break;var m=new THREE.Mesh(pGeo,new THREE.MeshBasicMaterial({color:color,transparent:true}));m.position.copy(pos);var v=new THREE.Vector3((Math.random()-.5)*2,Math.random()*1.5+.4,(Math.random()-.5)*2).normalize().multiplyScalar(spd*(.4+Math.random()*.9));scene.add(m);particles.push({mesh:m,vel:v,life:.7+Math.random()*.5});}}
-  function spawnRing(pos,color,maxScale,dur){var ring=new THREE.Mesh(new THREE.TorusGeometry(1,.12,8,32),new THREE.MeshBasicMaterial({color:color,transparent:true,opacity:.9}));ring.rotation.x=Math.PI/2;ring.position.copy(pos);ring.position.y=.4;scene.add(ring);var t=0;var iv=setInterval(function(){t+=.04;var s=1+t*(maxScale||10);ring.scale.set(s,s,s);ring.material.opacity=Math.max(0,.9-t/(dur||.6));if(t>(dur||.6)){clearInterval(iv);scene.remove(ring);ring.geometry.dispose();ring.material.dispose();}},30);}
+  var pMatCache={};
+  function getPMat(c){if(!pMatCache[c])pMatCache[c]=new THREE.MeshBasicMaterial({color:c,transparent:true});return pMatCache[c];}
+  function spawnParticles(pos,color,count,spd){
+    if(!GFX.particles)return;
+    var maxP=GFX.renderQuality==='low'?40:70;
+    var mult=GFX.renderQuality==='low'?.4:(GFX.renderQuality==='medium'?.7:1);
+    count=Math.max(1,Math.round(count*mult));
+    for(var k=0;k<count;k++){if(particles.length>maxP)break;var m=new THREE.Mesh(pGeo,getPMat(color));m.position.copy(pos);var v=new THREE.Vector3((Math.random()-.5)*2,Math.random()*1.5+.4,(Math.random()-.5)*2).normalize().multiplyScalar(spd*(.4+Math.random()*.9));scene.add(m);particles.push({mesh:m,vel:v,life:.7+Math.random()*.5});}
+  }
+  function spawnRing(pos,color,maxScale,dur){
+    if(!GFX.particles)return;
+    var ring=new THREE.Mesh(new THREE.TorusGeometry(1,.12,8,32),new THREE.MeshBasicMaterial({color:color,transparent:true,opacity:.9}));ring.rotation.x=Math.PI/2;ring.position.copy(pos);ring.position.y=.4;scene.add(ring);var t=0;var iv=setInterval(function(){t+=.04;var s=1+t*(maxScale||10);ring.scale.set(s,s,s);ring.material.opacity=Math.max(0,.9-t/(dur||.6));if(t>(dur||.6)){clearInterval(iv);scene.remove(ring);ring.geometry.dispose();ring.material.dispose();}},30);
+  }
 
   var dmgWrap=document.getElementById('dmgNums');
   function dmgNumber(worldPos,text,color,big,reaction){
@@ -581,7 +662,7 @@
   function flashScreen(amt,color){flashEl.style.background=color||'#fff';flashEl.style.transition='none';flashEl.style.opacity=amt;setTimeout(function(){flashEl.style.transition='opacity .5s';flashEl.style.opacity=0;},40);}
 
   function tryInteract(){
-    var dw=Math.hypot(-22-player.position.x, 10.5-player.position.z);
+    var dw=Math.hypot(-22-player.position.x, 8.5-player.position.z);
     if(dw<2.5){
       if(!wowoTalked){
         openDialogue(['Halo Traveler! Namaku Wowo, aku petani sawit di pulau ini.','Lahanku baru saja dibuka, tapi aku sendirian... bisakah kau menolongku menanam 4 pohon sawit?','Aku sudah siapkan 4 bibit dan lubang tanam (titik kuning bercahaya) di ladang. Tolong tanam ya!']);
@@ -702,7 +783,7 @@
     updateObjective();setTimeout(nextTutorial,800);
   });
 
-  window.addEventListener('resize',function(){W=wrap.clientWidth;H=wrap.clientHeight;camera.aspect=W/H;camera.updateProjectionMatrix();renderer.setSize(W,H);});
+  window.addEventListener('resize',function(){W=wrap.clientWidth;H=wrap.clientHeight;camera.aspect=W/H;camera.updateProjectionMatrix();renderer.setPixelRatio(Math.min(window.devicePixelRatio,gfxMaxPR()));renderer.setSize(W,H);});
 
   var hpBar=document.getElementById('hpBar'),stBar=document.getElementById('stBar'),enBar=document.getElementById('enBar'),expBar=document.getElementById('expBar');
   var hpTxt=document.getElementById('hpTxt'),lvlTxt=document.getElementById('lvlTxt'),moraTxt=document.getElementById('moraTxt');
@@ -716,9 +797,15 @@
   var buffTxt=document.getElementById('buffTxt');
 
   var clock=new THREE.Clock();
-  function animate(){
+  var _lastFrame=0, _frameCount=0, _fpsAcc=0, _fpsFrames=0, _skyCol=new THREE.Color();
+  function animate(t){
     requestAnimationFrame(animate);
+    if(!t)t=performance.now();
+    var _interval=1000/GFX.fpsLimit;
+    if(t-_lastFrame<_interval)return;
+    _lastFrame=t; _frameCount++;
     var rawDt=Math.min(clock.getDelta(),.05);
+    _fpsAcc+=rawDt; _fpsFrames++; if(_fpsAcc>=.5){var f=document.getElementById('gfxFps');if(f)f.textContent=Math.round(_fpsFrames/_fpsAcc)+' FPS';_fpsAcc=0;_fpsFrames=0;}
     var dt=G.hitStop>0?0:rawDt;
     if(G.hitStop>0)G.hitStop-=rawDt;
     G.time+=rawDt;
@@ -868,7 +955,7 @@
       });
 
       var near=false,prompt='';
-      if(Math.hypot(-22-player.position.x,10.5-player.position.z)<2.5){near=true;prompt='Tekan [F] untuk bicara dengan Wowo';}
+      if(Math.hypot(-22-player.position.x,8.5-player.position.z)<2.5){near=true;prompt='Tekan [F] untuk bicara dengan Wowo';}
       else if(saplings>0){for(var si=0;si<plantSpots.length;si++){var sp=plantSpots[si];if(!sp.planted&&Math.hypot(sp.x-player.position.x,sp.z-player.position.z)<2.2){near=true;prompt='Tekan [F] untuk menanam bibit sawit ('+planted+'/4)';break;}}}
       if(!near){
         var ds2=Math.hypot(24-player.position.x,-20-player.position.z);
@@ -898,22 +985,28 @@
       if(p.life<=0){scene.remove(p.mesh);particles.splice(pi,1);}
     }
 
-    for(var wi=0;wi<waterPos.count;wi++){
-      var wx=waterPos.getX(wi),wz=waterPos.getY(wi);
-      waterPos.setZ(wi,Math.sin(wx*.15+G.time*1.2)*.12+Math.cos(wz*.15+G.time*.9)*.12);
+    var _waterStep=GFX.water==='low'?3:1; if(!G.started)_waterStep=6;
+    var _waterAmp=GFX.water==='low'?.06:.12;
+    if(_frameCount%_waterStep===0){
+      for(var wi=0;wi<waterPos.count;wi++){
+        var wx=waterPos.getX(wi),wz=waterPos.getY(wi);
+        waterPos.setZ(wi,Math.sin(wx*.15+G.time*1.2)*_waterAmp+Math.cos(wz*.15+G.time*.9)*_waterAmp);
+      }
+      waterPos.needsUpdate=true;
     }
-    waterPos.needsUpdate=true;
 
     clouds.forEach(function(c){c.position.x+=rawDt*.8;if(c.position.x>80)c.position.x=-80;});
 
-    var fp=fireflies.geometry.attributes.position;
-    for(var fi=0;fi<50;fi++){fp.setY(fi,.5+Math.sin(G.time*1.5+flySeed[fi])*1.2+(flySeed[fi]%3));fp.setX(fi,fp.getX(fi)+Math.sin(G.time+flySeed[fi])*.01);}
-    fp.needsUpdate=true;
+    if(_frameCount%2===0){
+      var fp=fireflies.geometry.attributes.position;
+      for(var fi=0;fi<50;fi++){fp.setY(fi,.5+Math.sin(G.time*1.5+flySeed[fi])*1.2+(flySeed[fi]%3));fp.setX(fi,fp.getX(fi)+Math.sin(G.time+flySeed[fi])*.01);}
+      fp.needsUpdate=true;
+    }
 
     var dayT=(G.time%140)/140;
     var night=Math.max(0,-Math.sin(dayT*Math.PI*2));
-    var skyCol=new THREE.Color().setHSL(.58-night*.08,.55-night*.3,.62-night*.45);
-    scene.background.copy(skyCol);scene.fog.color.copy(skyCol);
+    _skyCol.setHSL(.58-night*.08,.55-night*.3,.62-night*.45);
+    scene.background.copy(_skyCol);scene.fog.color.copy(_skyCol);
     sun.intensity=.5+.9*Math.max(0,Math.sin(dayT*Math.PI*2));
     starMat.opacity=Math.min(.9,night*1.5);hemi.intensity=.8-night*.4;
 
@@ -933,21 +1026,23 @@
     vignette.style.opacity=G.hp/G.maxHp<.3?(.5+Math.sin(G.time*6)*.3):0;
     if(G.comboCount>1){comboEl.style.opacity=1;comboNum.textContent=G.comboCount;}else{comboEl.style.opacity=0;}
 
-    // minimap
+    // minimap (throttled every 3 frames)
+    if(_frameCount%3===0){
     mctx.clearRect(0,0,120,120);
     var cx=60,cy=60,sc=120/(ISLAND_R*2+10);
     mctx.beginPath();mctx.arc(cx,cy,ISLAND_R*sc,0,Math.PI*2);mctx.fillStyle='rgba(74,140,60,.5)';mctx.fill();
     mctx.strokeStyle='rgba(255,255,255,.2)';mctx.stroke();
     mctx.fillStyle='rgba(139,107,66,.6)';mctx.fillRect(cx-22*sc-6,cy+16*sc-6,13*sc,13*sc);
-    mctx.fillStyle=wowoTalked?'#4ade80':'#fbbf24';mctx.beginPath();mctx.arc(cx-22*sc,cy+10.5*sc,3.5,0,Math.PI*2);mctx.fill();
+    mctx.fillStyle=wowoTalked?'#4ade80':'#fbbf24';mctx.beginPath();mctx.arc(cx-22*sc,cy+8.5*sc,3.5,0,Math.PI*2);mctx.fill();
     plantSpots.forEach(function(sp){if(!sp.planted){mctx.fillStyle='#a3e635';mctx.beginPath();mctx.arc(cx+sp.x*sc,cy+sp.z*sc,2,0,Math.PI*2);mctx.fill();}});
     mctx.fillStyle='#5eead4';mctx.beginPath();mctx.arc(cx+24*sc,cy-20*sc,4,0,Math.PI*2);mctx.fill();
     chests.forEach(function(c){if(!c.opened){mctx.fillStyle='#fbbf24';mctx.beginPath();mctx.arc(cx+c.x*sc,cy+c.z*sc,3,0,Math.PI*2);mctx.fill();}});
     oculi.forEach(function(o){if(!o.taken){mctx.fillStyle='#7dd3fc';mctx.beginPath();mctx.arc(cx+o.x*sc,cy+o.z*sc,2.5,0,Math.PI*2);mctx.fill();}});
-    allEnemies.forEach(function(en){if(en.alive){mctx.fillStyle=en.type==='boss'?'#ff0000':'#ef4444';mctx.beginPath();mctx.arc(cx+en.group.position.x*sc,cy+en.group.position.z*sc,en.type==='boss'?4:2.5,0,Math.PI*2);mctx.fill();}});
+    (allEnemies||enemies).forEach(function(en){if(en.alive){mctx.fillStyle=en.type==='boss'?'#ff0000':'#ef4444';mctx.beginPath();mctx.arc(cx+en.group.position.x*sc,cy+en.group.position.z*sc,en.type==='boss'?4:2.5,0,Math.PI*2);mctx.fill();}});
     mctx.save();mctx.translate(cx+player.position.x*sc,cy+player.position.z*sc);mctx.rotate(-player.rotation.y);
     mctx.fillStyle='#60a5fa';mctx.beginPath();mctx.moveTo(0,-5);mctx.lineTo(3.5,4);mctx.lineTo(-3.5,4);mctx.closePath();mctx.fill();
     mctx.restore();
+    }
 
     renderer.render(scene,camera);
   }
@@ -959,6 +1054,100 @@
     if(G.hp<=0){ G.hp=0; G.dead=true; G.deadT=0; deathOv.style.display='flex'; }
   }
 
+  // ===== APPLY GRAPHICS SETTINGS (real render-load control) =====
+  function applyGraphics(){
+    // Render quality -> pixel ratio
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, gfxMaxPR()));
+    renderer.setSize(W,H);
+    // Shadow
+    renderer.shadowMap.enabled=GFX.shadow;
+    sun.castShadow=GFX.shadow;
+    if(GFX.shadow){
+      var sr=gfxShadowRes();
+      if(sun.shadow.mapSize.x!==sr){
+        sun.shadow.mapSize.set(sr,sr);
+        if(sun.shadow.map){sun.shadow.map.dispose();sun.shadow.map=null;}
+      }
+    }
+    // Vegetation density
+    var vf=GFX.vegetation==='low'?0.35:(GFX.vegetation==='medium'?0.7:1);
+    if(typeof grassTotal!=='undefined'){grass.count=Math.max(10,Math.floor(grassTotal*vf));}
+    if(typeof flowerMeshes!=='undefined'){
+      var fShow=Math.floor(flowerMeshes.length*vf);
+      for(var fi=0;fi<flowerMeshes.length;fi++){flowerMeshes[fi].visible=fi<fShow;}
+    }
+    if(typeof fireflies!=='undefined'){fireflies.visible=vf>0.4;}
+    if(typeof clouds!=='undefined'){
+      var cShow=Math.max(2,Math.ceil(clouds.length*vf));
+      for(var ci=0;ci<clouds.length;ci++){clouds[ci].visible=ci<cShow;}
+    }
+    // Particles: if off, clear active particles
+    if(!GFX.particles){
+      for(var pi=0;pi<particles.length;pi++){scene.remove(particles[pi].mesh);}
+      particles.length=0;
+    }
+  }
+  // ===== Graphics UI wiring =====
+  var gfxPanel=document.getElementById('gfxPanel');
+  var gfxBtn=document.getElementById('gfxBtn');
+  var gfxCustomBadge=document.getElementById('gfxCustomBadge');
+  function openGfx(){gfxPanel.classList.add('open');}
+  function closeGfx(){gfxPanel.classList.remove('open');}
+  gfxBtn.addEventListener('click',function(e){e.stopPropagation();gfxPanel.classList.toggle('open');});
+  gfxBtn.addEventListener('touchstart',function(e){e.stopPropagation();},{passive:false});
+  document.getElementById('gfxClose').addEventListener('click',function(e){e.stopPropagation();closeGfx();});
+  gfxPanel.addEventListener('click',function(e){e.stopPropagation();});
+  gfxPanel.addEventListener('touchstart',function(e){e.stopPropagation();},{passive:false});
+  window.addEventListener('keydown',function(e){if(e.code==='Escape')closeGfx();});
+  function syncGfxUI(){
+    document.querySelectorAll('.gfxPreset').forEach(function(b){b.classList.toggle('active',b.dataset.preset===GFX.preset);});
+    gfxCustomBadge.classList.toggle('show',GFX.preset==='custom');
+    document.querySelectorAll('.gfxToggle').forEach(function(t){
+      var key=t.dataset.key; t.classList.toggle('on',!!GFX[key]);
+    });
+    document.querySelectorAll('.gfxSeg').forEach(function(seg){
+      var key=seg.dataset.key;
+      seg.querySelectorAll('button').forEach(function(b){b.classList.toggle('active',String(b.dataset.val)===String(GFX[key]));});
+    });
+  }
+  function markCustom(){GFX.preset='custom';}
+  document.querySelectorAll('.gfxPreset').forEach(function(b){
+    b.addEventListener('click',function(e){
+      e.stopPropagation();
+      var p=b.dataset.preset, vals=GFX_PRESETS[p];
+      for(var k in vals){GFX[k]=vals[k];}
+      GFX.preset=p;
+      gfxSave(); applyGraphics(); syncGfxUI();
+    });
+  });
+  document.querySelectorAll('.gfxToggle').forEach(function(t){
+    t.addEventListener('click',function(e){
+      e.stopPropagation();
+      var key=t.dataset.key; GFX[key]=!GFX[key];
+      markCustom(); gfxSave(); applyGraphics(); syncGfxUI();
+    });
+  });
+  document.querySelectorAll('.gfxSeg').forEach(function(seg){
+    seg.querySelectorAll('button').forEach(function(b){
+      b.addEventListener('click',function(e){
+        e.stopPropagation();
+        var key=seg.dataset.key, val=b.dataset.val;
+        if(key==='fpsLimit')val=parseInt(val,10);
+        GFX[key]=val;
+        markCustom(); gfxSave(); applyGraphics(); syncGfxUI();
+      });
+    });
+  });
+  document.getElementById('gfxReset').addEventListener('click',function(e){
+    e.stopPropagation();
+    var vals=GFX_PRESETS[GFX_DEFAULT_PRESET];
+    for(var k in vals){GFX[k]=vals[k];}
+    GFX.preset=GFX_DEFAULT_PRESET;
+    gfxSave(); applyGraphics(); syncGfxUI();
+    showToast('Pengaturan grafik dikembalikan ke default','linear-gradient(90deg,#3b82f6,#0ea5e9)');
+  });
+  applyGraphics();
+  syncGfxUI();
   animate();
   updateObjective();
 })();
